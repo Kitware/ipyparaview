@@ -1,25 +1,10 @@
-FROM continuumio/miniconda3 AS conda
-LABEL Description="ipyParaView: a container for demos."
-
-SHELL ["/bin/bash", "-c"]
-
-USER root
+# Build from the base image so that we can develop and test rapidly
+# This will have ParaView and conda all set up properly
+FROM ipp_base
 
 WORKDIR /root
 COPY . ./ipyparaview/
 WORKDIR /root/ipyparaview
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libgl1-mesa-dev xvfb tini && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN conda install --quiet --yes -c conda-forge --file conda_requirements.txt
-
-COPY start_xvfb.sh /sbin/start_xvfb.sh
-RUN chmod a+x /sbin/start_xvfb.sh
-
-# Might not be needed:
-# ARG LD_LIBRARY_PATH=/opt/conda/envs/ipy_pv_dev/lib
 
 # Install ipyparaview
 RUN pip install -e .
