@@ -45,6 +45,7 @@ Within a conda environment
 
 Or from a Docker container, create an image by:
 
+    $ docker build -t ipp_base -f Dockerfile_base .
     $ docker build -t ipp .
 
 Then run that container by:
