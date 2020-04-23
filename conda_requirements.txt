@@ -3,7 +3,7 @@ jupyter
 jupyterlab
 ipython
 pillow
-paraview
+paraview=5.8.0=py37ha369aaf_8
 nodejs
 numpy
 matplotlib
