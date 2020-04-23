@@ -6,16 +6,24 @@ SHELL ["/bin/bash", "-c"]
 USER root
 
 WORKDIR /root
-COPY conda_requirements.txt .
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends libgl1-mesa-dev xvfb tini && \
     rm -rf /var/lib/apt/lists/*
 
-RUN conda install --quiet --yes -c conda-forge --file conda_requirements.txt
+RUN conda install --quiet --yes -c conda-forge \
+    ipywidgets \
+    jupyter \
+    jupyterlab \
+    ipython \
+    pillow \
+    paraview=5.8.0=py37ha369aaf_8 \
+    nodejs \
+    numpy \
+    matplotlib \
+    scipy
 
 COPY start_xvfb.sh /sbin/start_xvfb.sh
 RUN chmod a+x /sbin/start_xvfb.sh
 
-# Might not be needed:
-# ARG LD_LIBRARY_PATH=/opt/conda/envs/ipy_pv_dev/lib
+ENTRYPOINT ["tini", "-g", "--", "start_xvfb.sh"]
