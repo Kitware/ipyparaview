@@ -64,7 +64,7 @@ Then run that container by:
 Our `conda` environment installs all required dependencies for our demos.
 
 ```
-conda activate ipy_dev
+conda activate ipy_pv_dev
 export PYTHONPATH=$PVPATH/lib/python3.7/site-packages/ # or `conda install paraview`
 cd notebooks/
 jupyter notebook
