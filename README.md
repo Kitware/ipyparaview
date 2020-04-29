@@ -50,7 +50,6 @@ Within a conda environment
     $ export PYTHONPATH=$PVPATH/lib/python3.7/site-packages/
     $ jupyter notebook
 
-
 Or from a Docker container, create an image by:
 
     $ docker build -t ipp_base -f base.dockerfile .
@@ -59,3 +58,14 @@ Or from a Docker container, create an image by:
 Then run that container by:
 
     $ docker run -p 8888:8888 ipp
+
+## Demos
+
+Our `conda` environment installs all required dependencies for our demos.
+
+```
+conda activate ipy_dev
+export PYTHONPATH=$PVPATH/lib/python3.7/site-packages/ # or `conda install paraview`
+cd notebooks/
+jupyter notebook
+```
