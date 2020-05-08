@@ -17,10 +17,10 @@
 var widgets = require('@jupyter-widgets/base');
 var _ = require('lodash');
 
-var PVDisplayModel = widgets.DOMWidgetModel.extend({
+var VTKDisplayModel = widgets.DOMWidgetModel.extend({
     defaults: _.extend(widgets.DOMWidgetModel.prototype.defaults(), {
-        _model_name : 'PVDisplayModel',
-        _view_name : 'PVDisplayView',
+        _model_name : 'VTKDisplayModel',
+        _view_name : 'VTKDisplayView',
         _model_module : 'ipyparaview',
         _view_module : 'ipyparaview',
         _model_module_version : '0.1.2',
@@ -31,7 +31,7 @@ var PVDisplayModel = widgets.DOMWidgetModel.extend({
 /*
  * Helper functions for vector math
  */
-var PVDisplayView = widgets.DOMWidgetView.extend({
+var VTKDisplayView = widgets.DOMWidgetView.extend({
         render: function(){
             this.model.on('change:compressedFrame', this.compressedFrameChange, this);
             this.model.on('change:frame', this.frameChange, this);
@@ -209,6 +209,6 @@ var PVDisplayView = widgets.DOMWidgetView.extend({
 });
 
 module.exports = {
-    PVDisplayModel : PVDisplayModel,
-    PVDisplayView : PVDisplayView
+    VTKDisplayModel : VTKDisplayModel,
+    VTKDisplayView : VTKDisplayView
 };

@@ -29,10 +29,10 @@ from io import BytesIO
 from PIL import Image
 
 @widgets.register
-class PVDisplay(widgets.DOMWidget):
+class VTKDisplay(widgets.DOMWidget):
     """A ParaView interactive render widget"""
-    _view_name = Unicode('PVDisplayView').tag(sync=True)
-    _model_name = Unicode('PVDisplayModel').tag(sync=True)
+    _view_name = Unicode('VTKDisplayView').tag(sync=True)
+    _model_name = Unicode('VTKDisplayModel').tag(sync=True)
     _view_module = Unicode('ipyparaview').tag(sync=True)
     _model_module = Unicode('ipyparaview').tag(sync=True)
     _view_module_version = Unicode('^0.1.2').tag(sync=True)
@@ -52,11 +52,11 @@ class PVDisplay(widgets.DOMWidget):
     @classmethod
     def GetOrCreate(cls, ren, runAsync=True, **kwargs):
         """
-        Check if a PVDisplay instance already exists for the renderer. If yes, return that instance; otherwise, create a new one.
+        Check if a VTKDisplay instance already exists for the renderer. If yes, return that instance; otherwise, create a new one.
         """
         instance = cls.instances.get(ren, None)
         if instance is None:
-            instance = PVDisplay(ren, runAsync, **kwargs)
+            instance = VTKDisplay(ren, runAsync, **kwargs)
             cls.instances.update({ ren : instance })
         return instance
 
@@ -73,10 +73,10 @@ class PVDisplay(widgets.DOMWidget):
         except ImportError:
             self.mode = 'Jupyter'
 
-        if self.mode == 'Jupyter' and ren in PVDisplay.instances:
-            raise RuntimeError(f"A PVDisplay instance already exists for this renderer. Use PVDisplay.GetOrCreate() to avoid this error.")
+        if self.mode == 'Jupyter' and ren in VTKDisplay.instances:
+            raise RuntimeError(f"A VTKDisplay instance already exists for this renderer. Use VTKDisplay.GetOrCreate() to avoid this error.")
 
-        super(PVDisplay, self).__init__(**kwargs) #must call super class init
+        super(VTKDisplay, self).__init__(**kwargs) #must call super class init
 
         # regular vars
         self.compressFrames = compressFrames
@@ -131,7 +131,7 @@ class PVDisplay(widgets.DOMWidget):
 
     #FIXME: starting the render loop thread outside of __init__ seems to create
     # a copy of the paraview.simple object, rather than using the one that's
-    # part of the PVDisplay state; this causes PV to crash
+    # part of the VTKDisplay state; this causes PV to crash
     #def setAsync(self, on):
     #    if on and not self.runAsync:
     #        self.runAsync = on
@@ -202,7 +202,7 @@ class PVDisplay(widgets.DOMWidget):
                      phiLim)
 
         self.render()
-        
+
     def __panCam(self, mouseDelta):
         #moves the camera with a 1:1 relation to current focal point
         if self.mode == 'Dask':
