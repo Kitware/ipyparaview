@@ -52,12 +52,15 @@ Within a conda environment
 
 Or from a Docker container, create an image by:
 
-    $ docker build -t ipp_base -f base.dockerfile .
-    $ docker build -t ipp .
+    $ docker build -t banesullivan/ipyparaview .
+
+Or download a pre-built image by:
+
+    $ docker pull banesullivan/ipyparaview
 
 Then run that container by:
 
-    $ docker run -p 8888:8888 ipp
+    $ docker run -p 8877:8877 banesullivan/ipyparaview
 
 ## Demos
 
